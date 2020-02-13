@@ -1,6 +1,18 @@
-# FormNgBootstrap
+# Angular-POC
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
+This POC implements some concepts in order to show a basic idea of some elements. 
+
+It's a Single Page Application using generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1. 
+
+Some elements are: template-driven forms, some third-party controls, bootstrap 4, SCSS Themes, Data Export , DragDrop, Log Service, and more.
+
+## Installing Angular CLI
+
+Install the CLI using the [npm package manager](https://www.npmjs.com/get-npm). From you Terminal, Run `npm install -g @angular/cli`.
+
+## Packages Installation
+
+From you Terminal, inside this project folder, Run `npm install` to install all dependencies.
 
 ## Development server
 

@@ -1,0 +1,24 @@
+@import "../assets/styles/vars";
+
+#theme-wrapper {
+    width: 100%;
+    background-color: $color-bg-white;
+    // important to force chrome to draw the sidebar to the bottom of the screen
+    height: auto;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+  
+      router-outlet + * {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+    }
+  }

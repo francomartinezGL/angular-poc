@@ -1,0 +1,72 @@
+$success-color: #28a745;
+$warning-color: #fd7e14;
+$color-detail: #d8dce6;
+
+$color-primary: #5ccc6b;
+$color-secondary: #1665d8;
+$color-default: #5b5c5d;
+$color-default-dark: #9ea0a5;
+$color-medium-green: #34aa44;
+
+/* BACKGROUND COLORS */
+$color-bg-primary: #f7f7f7;
+$color-bg-secondary: #303137;
+$color-bg-white: #ffffff;
+$color-bg-black: #000000;
+$color-bg-light-black: #35353b;
+$color-bg-blue-grey: #8b8c8e;
+$color-font-blue: #1665d8;
+$color-font-black: #000000;
+$card-header-grey-bg-color: #f3f2f3;
+$card-header-greylight-bg-color: #f7f9fb;
+$card-border-color: #d8dce6;
+$card-boxshadow-color: rgba(0, 0, 0, 0.08);
+$filter-list-color: #f6f6f7;
+
+$color-action: #1665d8;
+$color-error: #dc3619;
+$color-error-secondary: #ed584f;
+$color-cta-secondary: #e0e0e1;
+
+$color-modal-title-dark: #949494;
+$color-modal-content-dark: #222226;
+
+$table-border-nocolor: #1f1f1f;
+
+/*FONTS*/
+$font-open-sans: "Open Sans", "Helvetica", "Arial", sans-serif;
+$font-light: 300;
+$font-regular: 400;
+$font-semi-bold: 600;
+$font-bold: 700;
+$font-extra-bold: 800;
+$font-color-primary: #3e3f42;
+$font-color-secondary: #6b6c6f;
+
+/*TABLES*/
+$water-blue: #1665d8;
+
+/*GRADIENTS*/
+$primary-color-gradient: linear-gradient(to top, $color-action, #1f6fe5);
+$secondary-color-gradient: linear-gradient(to top, #f6f7f9, $color-bg-white);
+
+/*SHADOWS*/
+$btn-box-shadow: 0 1px 1px 0 rgba(22, 29, 37, 0.1),
+  inset 0 2px 0 0 rgba(255, 255, 255, 0.06);
+$global-box-shadow: 0 -1px 8px 0 rgba(0, 0, 0, 0.07),
+  0 2px 4px 0 rgba(0, 0, 0, 0.36);
+
+// PILLS
+
+// THEME
+$color-light: #fff;
+$color-dark: #1c1c1f;
+$color-detail-dark: #49494f;
+$color-dark-secondary: #35353b;
+$color-bkg-actions-dark: #6c6d72;
+$color-default-dark: #9ea0a5;
+$shadow: 0 1px 1px 0 rgba(19, 31, 21, 0.1),
+  inset 0 2px 0 0 rgba(255, 255, 255, 0.06);
+$light-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.16),
+  0 1px 5px 0 rgba(255, 255, 255, 0.23);
+$dark-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 5px 0 rgba(0, 0, 0, 0.23);

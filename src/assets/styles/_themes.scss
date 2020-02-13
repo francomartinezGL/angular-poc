@@ -1,0 +1,282 @@
+@import "./vars";
+
+body {
+  &.dark {
+    background: $color-dark;
+    #theme-wrapper {
+      background: $color-dark;
+      color: $color-light;
+      ::-webkit-input-placeholder {
+        color: $color-default-dark;
+      }
+      ::-moz-placeholder {
+        color: $color-default-dark;
+      }
+      :-ms-input-placeholder {
+        color: $color-default-dark;
+      }
+      :-moz-placeholder {
+        color: $color-default-dark;
+      }
+      .secondary-nav .breadcrumb {
+        background: $color-dark-secondary;
+        a,
+        li {
+          color: $color-light;
+        }
+      }
+      .timezone {
+        color: $color-light;
+      }
+
+      main-dashboard {
+        li,
+        a {
+          background: $color-dark;
+          span {
+            background: $color-dark-secondary;
+            color: $color-light;
+            span {
+              background: transparent;
+            }
+          }
+        }
+      }
+
+      .page-list {
+        background: $color-dark;
+        .page-header {
+          background: $color-dark-secondary;
+        }
+      }
+
+      select,
+      input[type="text"],
+      input[type="email"],
+      input[type="number"],
+      input[type="search"],
+      ng-select,
+      .ng-select-container {
+        background-color: $color-dark;
+        border-color: $color-bg-white !important;
+        &.btn-primary {
+          background-image: linear-gradient(to top, #34aa44, #38b249);
+        }
+        color: $color-light;
+      }
+      .ng-dropdown-header button {
+        padding: 10px 0;
+        box-shadow: none;
+        color: $color-light;
+      }
+      .ng-value,
+      .ng-placeholder {
+        z-index: 10;
+      }
+      .form-control {
+        color: $color-light;
+        background-color: $color-dark;
+      }
+
+      thead {
+        background: $color-dark;
+        th {
+          border-bottom: solid 1px $color-light;
+          border-top: solid 1px $color-light;
+          color: $color-light;
+        }
+      }
+      .table {
+        color: $color-light;
+        tbody {
+          .action-menu,
+          .dropdown-item {
+            background: $color-detail-dark;
+            color: $color-light;
+          }
+          .dropdown-menu {
+            background: $color-bkg-actions-dark;
+            padding: 0;
+            border-radius: 4px;
+            margin-top: 0;
+          }
+          .dropdown-item {
+            box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.06);
+            margin: 0 11px 1px 0;
+          }
+        }
+        &.table-hover {
+          tr:hover {
+            color: $color-default-dark;
+          }
+        }
+        td {
+          border-color: $color-dark-secondary;
+          &:first-child,
+          &:nth-child(2) {
+            background: inherit;
+          }
+        }
+        .action-menu {
+          border: none !important;
+        }
+
+        .table-header-border-custom {
+          border: solid 1px $table-border-nocolor;
+          border-bottom: solid 1px $color-bg-light-black;
+        }
+      }
+      .table-striped tbody {
+        tr:nth-child(even) {
+          background: $color-dark-secondary;
+        }
+        tr:nth-child(odd) {
+          background: $color-dark;
+        }
+      }
+      .color-default {
+        color: $color-default-dark;
+      }
+
+      .pagination-container .page-link {
+        background: $color-detail-dark !important;
+        border: none !important;
+        color: $color-light !important;
+      }
+
+      .container-detail,
+      .container-create {
+        background: $color-dark;
+      }
+      .white-bg,
+      .bg-white {
+        background: $color-dark !important;
+      }
+      .border-bottom {
+        border-bottom: solid 1px $color-dark-secondary !important;
+      }
+
+      .card-role {
+        border-color: $color-dark-secondary;
+        li {
+          border-bottom: solid 1px $color-dark-secondary;
+        }
+      }
+      .card-header {
+        background-color: $color-dark-secondary;
+      }
+      .card-body {
+        background: $color-dark;
+      }
+
+      .btn {
+        color: $color-light;
+        &.btn-primary {
+          color: $color-light;
+        }
+        &.btn-white,
+        &.btn-action-secondary,
+        &.btn-secondary-gradient {
+          color: $color-dark;
+        }
+      }
+
+      .main-page {
+        background: $color-dark;
+        .header-actions {
+          background: $color-dark-secondary;
+        }
+        .section-divider {
+          background: $color-dark;
+        }
+        .nav-wrapper {
+          background: $color-dark-secondary;
+          color: $color-light;
+          border-bottom: solid 1px $color-dark;
+          button,
+          li:not(.disabled) {
+            color: $color-light;
+          }
+        }
+        .tab-content,
+        .content-panel,
+        .content-panel form {
+          background: $color-dark;
+        }
+        .section-header {
+          background: $color-dark-secondary;
+          color: $color-light;
+        }
+      }
+
+      label {
+        color: $color-light;
+      }
+
+      .fake-label {
+        color: $color-light;
+        & + p {
+          color: $color-light;
+        }
+      }
+
+      .accordion {
+        .accordion-header {
+          background: $color-dark-secondary;
+          color: $color-light;
+          span {
+            color: $color-light;
+          }
+        }
+        .accordion-body {
+          background: $color-dark;
+        }
+      }
+
+      .market-header {
+        background: $color-dark-secondary;
+      }
+      .market-body {
+        background: $color-dark;
+      }
+
+      .btnPill {
+        background: $color-dark-secondary;
+        .btnPillShare {
+          background: $color-dark;
+          box-shadow: none;
+        }
+      }
+      .btn.btn-primary-outlined {
+        color: $color-light;
+        border-color: $color-light;
+      }
+      .btn-secondary {
+        @extend .btn-secondary-gradient;
+      }
+      .btn-primary {
+        @extend .btn-primary-gradient;
+      }
+    }
+  }
+  &.light {
+    #theme-wrapper {
+      .btn.btn-primary-outlined {
+        color: $color-secondary;
+        border-color: $color-secondary;
+      }
+
+      .btn-secondary {
+        @extend .btn-secondary-gradient;
+      }
+
+      .btn-primary {
+        @extend .btn-primary-gradient;
+      }
+
+      .content-panel-custom {
+        padding-top: 3px;
+      }
+    }
+  }
+}

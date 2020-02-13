@@ -1,5 +1,5 @@
 {
-  "name": "form-ng-bootstrap",
+  "name": "angular-poc",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -16,9 +16,17 @@
     "@angular/compiler": "~9.0.0",
     "@angular/core": "~9.0.0",
     "@angular/forms": "~9.0.0",
+    "@angular/localize": "^9.0.0",
     "@angular/platform-browser": "~9.0.0",
     "@angular/platform-browser-dynamic": "~9.0.0",
     "@angular/router": "~9.0.0",
+    "@ng-select/ng-select": "^3.0.6",
+    "bootstrap": "^4.4.1",
+    "ng-pick-datetime": "7.0.0",
+    "ng-pick-datetime-moment": "1.0.8",
+    "ngx-ui-switch": "^8.1.0",
+    "file-saver": "2.0.1",
+    "moment": "2.24.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
