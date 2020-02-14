@@ -1,432 +1,517 @@
 <form #myForm="ngForm">
-    <div class="row pl-5 pr-5">
-      <div class="col-12 pl-5 v-divider-down">
-        <div class="row border-top mt-4 pt-4">
-          <!-- NAME -->
-          <div class="col-12 col-md-4">
-            <span class="fake-label">TEXT</span>
-            <p *ngIf="!displayForm">{{ pipeLine?.name ? pipeLine.name : "-" }}</p>
+  <div class="row pl-5 pr-5">
+    <div class="col-12 pl-5 v-divider-down">
+      <div class="row border-top mt-4 pt-4">
+        <!-- NAME -->
+        <div class="col-12 col-md-4">
+          <span class="fake-label">TEXT</span>
+          <p *ngIf="!displayForm" class="mb-3 text-primary font-weight-bolder">
+            {{ pipeLine?.name ? pipeLine.name : "-" }}
+          </p>
+          <input
+            *ngIf="displayForm"
+            type="text"
+            class="form-control mb-3"
+            [(ngModel)]="pipeLine.name"
+            name="name"
+            id="name"
+            placeholder="Please enter..."
+            required
+          />
+        </div>
+        <!-- SHORT NAME -->
+        <div class="col-12 col-md-4">
+          <span class="fake-label">NUMBERS</span>
+          <p *ngIf="!displayForm" class="mb-3 text-primary font-weight-bolder">
+            {{ pipeLine.internalShortName ? pipeLine.internalShortName : "-" }}
+          </p>
+          <input
+            *ngIf="displayForm"
+            type="number"
+            class="form-control mb-3"
+            [(ngModel)]="pipeLine.internalShortName"
+            name="internalShortName"
+            id="internalShortName"
+            placeholder="Please enter..."
+            required
+          />
+        </div>
+        <!-- LONG NAME -->
+        <div class="col-12 col-md-4">
+          <span class="fake-label">TEXTAREA</span>
+          <p *ngIf="!displayForm" class="mb-3 text-primary font-weight-bolder">
+            {{ pipeLine.internalLongName ? pipeLine.internalLongName : "-" }}
+          </p>
+          <textarea
+            *ngIf="displayForm"
+            type="text"
+            class="form-control mb-3"
+            [(ngModel)]="pipeLine.internalLongName"
+            name="internalLongName"
+            id="internalLongName"
+            placeholder="Please enter..."
+            required
+          ></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <!-- START DATE -->
+        <div class="col-12 col-md-4">
+          <span class="fake-label">DATE AND TIME</span>
+          <p *ngIf="!displayForm" class="mb-3 text-primary font-weight-bolder">
+            {{
+              pipeLine.pipeLineStartDate
+                ? pipeLine.pipeLineStartDate.localDate
+                : "-"
+            }}
+          </p>
+          <ng-container *ngIf="displayForm">
             <input
-              *ngIf="displayForm"
-              type="text"
               class="form-control mb-3"
-              [(ngModel)]="pipeLine.name"
-              name="name"
-              id="name"
-              placeholder="Please enter..."
+              name="pipeLineStartDate"
+              id="pipeLineStartDate"
+              [(ngModel)]="pipeLine.pipeLineStartDate.localDate"
+              [max]="pipeLine.pipeLineEndDate.localDate"
+              (change)="validateDate($event)"
+              [owlDateTime]="pipeLineStartDate"
+              [owlDateTimeTrigger]="pipeLineStartDate"
+              placeholder="Select Date..."
               required
             />
-          </div>
-          <!-- SHORT NAME -->
-          <div class="col-12 col-md-4">
-            <span class="fake-label">NUMBERS</span>
-            <p *ngIf="!displayForm">
-              {{ pipeLine.internalShortName ? pipeLine.internalShortName : "-" }}
-            </p>
+            <span
+              class="calendar-icon-custom"
+              [owlDateTimeTrigger]="pipeLineStartDate"
+              ><i class="fal fa-calendar-alt"></i
+            ></span>
+            <owl-date-time #pipeLineStartDate></owl-date-time>
+          </ng-container>
+        </div>
+        <!-- END DATE -->
+        <div class="col-12 col-md-4">
+          <span class="fake-label">DATE</span>
+          <p *ngIf="!displayForm" class="mb-3 text-primary font-weight-bolder">
+            {{
+              pipeLine.pipeLineEndDate
+                ? pipeLine.pipeLineEndDate.localDate
+                : "-"
+            }}
+          </p>
+          <ng-container *ngIf="displayForm">
             <input
-              *ngIf="displayForm"
-              type="number"
               class="form-control mb-3"
-              [(ngModel)]="pipeLine.internalShortName"
-              name="internalShortName"
-              id="internalShortName"
-              placeholder="Please enter..."
+              name="pipeLineEndDate"
+              id="pipeLineEndDate"
+              [(ngModel)]="pipeLine.pipeLineEndDate.localDate"
+              [min]="pipeLine.pipeLineStartDate.localDate"
+              (change)="getDate($event)"
+              [owlDateTime]="pipeLineEndDate"
+              [owlDateTimeTrigger]="pipeLineEndDate"
+              placeholder="Select Date..."
               required
             />
-          </div>
-          <!-- LONG NAME -->
-          <div class="col-12 col-md-4">
-            <span class="fake-label">TEXTAREA</span>
-            <p *ngIf="!displayForm">
-              {{ pipeLine.internalLongName ? pipeLine.internalLongName : "-" }}
-            </p>
-            <textarea
-              *ngIf="displayForm"
-              type="text"
-              class="form-control mb-3"
-              [(ngModel)]="pipeLine.internalLongName"
-              name="internalLongName"
-              id="internalLongName"
-              placeholder="Please enter..."
-              required
-            ></textarea>
-          </div>
+            <span
+              class="calendar-icon-custom"
+              [owlDateTimeTrigger]="pipeLineEndDate"
+              ><i class="fal fa-calendar-alt"></i
+            ></span>
+            <owl-date-time
+              [pickerType]="'calendar'"
+              [startAt]="pipeLine.pipeLineStartDate.localDate"
+              #pipeLineEndDate
+            ></owl-date-time>
+          </ng-container>
         </div>
-        <div class="row">
-          <!-- START DATE -->
-          <div class="col-12 col-md-4">
-            <span class="fake-label">DATE AND TIME</span>
-            <p *ngIf="!displayForm">
-              {{ pipeLine.pipeLineStartDate ? pipeLine.pipeLineStartDate.localDate : "-" }}
+        <!-- TYPE -->
+        <div class="col-12 col-md-4">
+          <span class="fake-label">TYPE</span>
+          <ng-container *ngIf="!displayForm">
+            <p class="mb-3 text-primary font-weight-bolder">
+              {{ pipeLine.pipeLineType ? selectedPipeLineTypeName : "-" }}
             </p>
-            <ng-container *ngIf="displayForm">
-              <input
-                class="form-control mb-3"
-                name="pipeLineStartDate"
-                id="pipeLineStartDate"
-                [(ngModel)]="pipeLine.pipeLineStartDate.localDate"
-                [max]="pipeLine.pipeLineEndDate.localDate"
-                (change)="validateDate($event)"
-                [owlDateTime]="pipeLineStartDate"
-                [owlDateTimeTrigger]="pipeLineStartDate"
-                placeholder="Select Date..."
-                required
-              />
-              <span
-                class="calendar-icon-custom"
-                [owlDateTimeTrigger]="pipeLineStartDate"
-                ><i class="fal fa-calendar-alt"></i
-              ></span>
-              <owl-date-time #pipeLineStartDate></owl-date-time>
-            </ng-container>
-          </div>
-          <!-- END DATE -->
-          <div class="col-12 col-md-4">
-            <span class="fake-label">DATE</span>
-            <p *ngIf="!displayForm">
-              {{ pipeLine.pipeLineEndDate ? pipeLine.pipeLineEndDate.localDate : "-" }}
-            </p>
-            <ng-container *ngIf="displayForm">
-              <input
-                class="form-control mb-3"
-                name="pipeLineEndDate"
-                id="pipeLineEndDate"
-                [(ngModel)]="pipeLine.pipeLineEndDate.localDate"
-                [min]="pipeLine.pipeLineStartDate.localDate"
-                (onchange)="getDate($event)"
-                [owlDateTime]="pipeLineEndDate"
-                [owlDateTimeTrigger]="pipeLineEndDate"
-                placeholder="Select Date..."
-                required
-              />
-              <span
-                class="calendar-icon-custom"
-                [owlDateTimeTrigger]="pipeLineEndDate"
-                ><i class="fal fa-calendar-alt"></i
-              ></span>
-              <owl-date-time
-                [pickerType]="'calendar'"
-                [startAt]="pipeLine.pipeLineStartDate.localDate"
-                #pipeLineEndDate
-              ></owl-date-time>
-            </ng-container>
-          </div>
-          <!-- TYPE -->
-          <div class="col-12 col-md-4">
-            <span class="fake-label">TYPE</span>
-            <p *ngIf="!displayForm">
-              {{ pipeLine.pipeLineType ? pipeLine.pipeLineType.name : "-" }}
-            </p>
-            <ng-container *ngIf="displayForm">
-              <ng-select
-                class="mb-3"
-                [items]="pipeLineTypes"
-                bindLabel="name"
-                bindValue="id"
-                [multiple]="false"
-                [hideSelected]="true"
-                (change)="onUnitTypeChanged(pipeLine.pipeLineTypeId)"
-                placeholder="Please select..."
-                name="pipeLineTypeId"
-                id="pipeLineTypeId"
-                [(ngModel)]="pipeLine.pipeLineTypeId"
-              >
-              </ng-select>
-            </ng-container>
-          </div>
-        </div>
-        <div class="row">
-          <!-- SHORT TYPE -->
-          <div class="col-12 col-md-6">
-            <span class="fake-label">MULTI SELECT AND HIDE SELECTED</span>
-            <p *ngIf="!displayForm">
-              {{ pipeLine.primaryFuelType ? pipeLine.primaryFuelType.name : "-" }}
-            </p>
-            <ng-container *ngIf="displayForm">
-              <ng-select
-                class="mb-3"
-                [items]="fuelTypes"
-                bindLabel="name"
-                bindValue="id"
-                [multiple]="true"
-                [hideSelected]="true"
-                placeholder="Please select..."
-                name="primaryFuelTypeId"
-                id="primaryFuelTypeId"
-                required
-                [(ngModel)]="pipeLine.primaryFuelTypeId"
-              >
-              </ng-select>
-            </ng-container>
-          </div>
-          <!-- LONG TYPE -->
-          <div class="col-12 col-md-6">
-            <span class="fake-label"
-              >LONG TYPE <em class="text-light-grey">(Optional)</em></span
+          </ng-container>
+          <ng-container *ngIf="displayForm">
+            <ng-select
+              class="mb-3"
+              [items]="pipeLineTypes"
+              bindLabel="name"
+              bindValue="id"
+              [multiple]="false"
+              [hideSelected]="true"
+              (change)="onUnitTypeChanged($event)"
+              placeholder="Please select..."
+              name="pipeLineTypeId"
+              id="pipeLineTypeId"
+              [(ngModel)]="pipeLine.pipeLineTypeId"
             >
-            <p *ngIf="!displayForm">
-              {{ pipeLine.secondaryFuelType ? pipeLine.secondaryFuelType.name : "-" }}
-            </p>
-            <ng-container *ngIf="displayForm">
-              <ng-select
-                [items]="fuelTypes"
-                bindLabel="name"
-                bindValue="id"
-                [multiple]="false"
-                [hideSelected]="true"
-                placeholder="Please enter..."
-                name="secondaryFuelTypeId"
-                id="secondaryFuelTypeId"
-                [(ngModel)]="pipeLine.secondaryFuelTypeId"
-              >
-              </ng-select>
-            </ng-container>
-          </div>
-        </div>
-        <div class="row border-top mt-4">
-          <div class="col-12 pt-3">
-            <!-- CHECKBOXES -->
-            <ng-container>
-              <ng-container *ngIf="!displayForm">
-                <span class="fake-label">Checkboxes</span>
-                <p>
-                  {{ pipeLine.optionsSwitch ? "Enabled" : "Disabled" }}
-                </p>
-              </ng-container>
-              <ng-container *ngIf="displayForm" class="row mt-3">
-                <div class="col-auto d-inline-block">
-                  <ui-switch
-                    name="optionsSwitch"
-                    [(ngModel)]="pipeLine.optionsSwitch"
-                    required
-                  ></ui-switch>
-                </div>
-                <div class="col-auto mb-3 d-inline-block">
-                  <span
-                    >Checkboxes
-                    {{ pipeLine.optionsSwitch ? "Enabled" : "Disabled" }}</span
-                  ><br />
-                  <span class="text-light-grey"
-                    >Click to
-                    {{ pipeLine.optionsSwitch ? "disable" : "enable" }}
-                    Checkboxes</span
-                  >
-                </div>
-              </ng-container>
-              <ng-container *ngIf="!displayForm">
-                <div class="row mb-4 mt-4">
-                  <div class="col-3">
-                    <p *ngIf="pipeLine?.hasOption1">Option 1</p>
-                    <p *ngIf="pipeLine?.hasOption2">Option 2</p>
-                    <p *ngIf="pipeLine?.hasOption3">Option 3</p>
-                    <p *ngIf="pipeLine?.hasOption4">Option 4</p>
-                    <p *ngIf="pipeLine?.hasOption5">Option 5</p>
-                    <p *ngIf="pipeLine?.hasOption6">Option 6</p>
-                  </div>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="displayForm">
-                <div class="row mb-3">
-                  <div class="col-auto">
-                    <!-- Checkbox 1 -->
-                    <div class="checkbox">
-                      <label for="hasOption1">
-                        <input
-                          type="checkbox"
-                          [disabled]="!pipeLine.optionsSwitch"
-                          id="hasOption1"
-                          name="hasOption1"
-                          [(ngModel)]="pipeLine.hasOption1"
-                        />
-                        Checkbox 1
-                      </label>
-                    </div>
-                    <!-- Checkbox 2 -->
-                    <div class="checkbox">
-                      <label for="hasOption2">
-                        <input
-                          type="checkbox"
-                          [disabled]="!pipeLine.optionsSwitch"
-                          id="hasOption2"
-                          name="hasOption2"
-                          [(ngModel)]="pipeLine.hasOption2"
-                        />
-                        Checkbox 2
-                      </label>
-                    </div>
-                    <!-- Checkbox 3 -->
-                    <div class="checkbox">
-                      <label for="hasOption3">
-                        <input
-                          type="checkbox"
-                          [disabled]="!pipeLine.optionsSwitch"
-                          id="hasOption3"
-                          name="hasOption3"
-                          [(ngModel)]="pipeLine.hasOption3"
-                        />
-                        Checkbox 3
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-auto">
-                    <!-- Checkbox 4 -->
-                    <div class="checkbox">
-                      <label for="hasOption4">
-                        <input
-                          type="checkbox"
-                          [disabled]="!pipeLine.optionsSwitch"
-                          id="hasOption4"
-                          name="hasOption4"
-                          [(ngModel)]="pipeLine.hasOption4"
-                        />
-                        Checkbox 4
-                      </label>
-                    </div>
-                    <!-- Checkbox 5 -->
-                    <div class="checkbox">
-                      <label for="hasOption5">
-                        <input
-                          type="checkbox"
-                          [disabled]="!pipeLine.optionsSwitch"
-                          id="hasOption5"
-                          name="hasOption5"
-                          [(ngModel)]="pipeLine.hasOption5"
-                        />
-                        Checkbox 5
-                      </label>
-                    </div>
-                    <!-- Checkbox 6 -->
-                    <div class="checkbox">
-                      <label for="hasOption6">
-                        <input
-                          type="checkbox"
-                          [disabled]="!pipeLine.optionsSwitch"
-                          id="hasOption6"
-                          name="hasOption6"
-                          [(ngModel)]="pipeLine.hasOption6"
-                        />
-                        Checkbox 6
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
-            </ng-container>
-          </div>
-        </div>
-        <div class="row border-top pt-4">
-          <!-- RADIO BUTTONS 1 -->
-          <ng-container>
-            <div class="col-12 col-md-4">
-              <span class="fake-label">RADIO BUTTONS 1</span>
-              <p *ngIf="!displayForm">
-                {{ pipeLine.radioOption1 ? "Yes" : "No" }}
-              </p>
-              <ng-container *ngIf="displayForm">
-                <div class="col-auto pt-3">
-                  <div class="checkbox d-inline-block">
-                    <label for="radioOption1Yes">
-                      <input
-                        type="radio"
-                        id="radioOption1Yes"
-                        [value]="true"
-                        name="radioOption1"
-                        [(ngModel)]="pipeLine.radioOption1"
-                      />
-                      Yes
-                    </label>
-                  </div>
-                  <div class="checkbox d-inline-block ml-5">
-                    <label for="radioOption1No">
-                      <input
-                        type="radio"
-                        id="radioOption1No"
-                        [value]="false"
-                        name="radioOption1"
-                        [(ngModel)]="pipeLine.radioOption1"
-                      />
-                      No
-                    </label>
-                  </div>
-                </div>
-              </ng-container>
-            </div>
-          </ng-container>
-          <!-- RADIO BUTTONS 2 -->
-          <ng-container>
-            <div class="col-12 col-md-4">
-              <span class="fake-label">RADIO BUTTONS 2</span>
-              <p *ngIf="!displayForm">
-                {{ pipeLine.radioOption2 ? "Yes" : "No" }}
-              </p>
-              <ng-container *ngIf="displayForm">
-                <div class="col-auto pt-3">
-                  <div class="checkbox d-inline-block">
-                    <label for="radioOption2Yes">
-                      <input
-                        type="radio"
-                        id="radioOption2Yes"
-                        [value]="true"
-                        name="radioOption2"
-                        [(ngModel)]="pipeLine.radioOption2"
-                      />
-                      Yes
-                    </label>
-                  </div>
-                  <div class="checkbox d-inline-block ml-5">
-                    <label for="radioOption2No">
-                      <input
-                        type="radio"
-                        id="radioOption2No"
-                        [value]="false"
-                        name="radioOption2"
-                        [(ngModel)]="pipeLine.radioOption2"
-                      />
-                      No
-                    </label>
-                  </div>
-                </div>
-              </ng-container>
-            </div>
-          </ng-container>
-          <!-- RADIO BUTTONS 3 -->
-          <ng-container>
-            <div class="col-12 col-md-4">
-              <span class="fake-label">RADIO BUTTONS 3</span>
-              <p *ngIf="!displayForm">
-                {{ pipeLine.radioOption3 ? "Yes" : "No" }}
-              </p>
-              <ng-container *ngIf="displayForm">
-                <div class="col-auto pt-3 pb-3">
-                  <div class="checkbox d-inline-block">
-                    <label for="radioOption3Yes">
-                      <input
-                        type="radio"
-                        id="radioOption3Yes"
-                        [value]="true"
-                        name="radioOption3"
-                        [(ngModel)]="pipeLine.radioOption3"
-                      />
-                      Yes
-                    </label>
-                  </div>
-                  <div class="checkbox d-inline-block ml-5">
-                    <label for="radioOption3No">
-                      <input
-                        type="radio"
-                        id="radioOption3No"
-                        [value]="false"
-                        name="radioOption3"
-                        [(ngModel)]="pipeLine.radioOption3"
-                      />
-                      No
-                    </label>
-                  </div>
-                </div>
-              </ng-container>
-            </div>
+            </ng-select>
           </ng-container>
         </div>
       </div>
+      <div class="row">
+        <!-- SHORT TYPE -->
+        <div class="col-12 col-md-6">
+          <span class="fake-label">MULTI SELECT AND HIDE SELECTED</span>
+          <ng-container *ngIf="!displayForm">
+            <p
+              *ngFor="let primaryFuelType of pipeLine.primaryFuelType"
+              class="text-primary font-weight-bolder"
+            >
+              {{ primaryFuelType ? primaryFuelType.name : "-" }}
+            </p>
+          </ng-container>
+          <ng-container *ngIf="displayForm">
+            <ng-select
+              class="mb-3"
+              [items]="fuelTypes"
+              bindLabel="name"
+              bindValue="id"
+              [multiple]="true"
+              [hideSelected]="true"
+              (change)="onMultiTypeChanged($event)"
+              placeholder="Please select..."
+              name="primaryFuelTypeId"
+              id="primaryFuelTypeId"
+              required
+              [(ngModel)]="pipeLine.primaryFuelTypeId"
+            >
+            </ng-select>
+          </ng-container>
+        </div>
+        <!-- LONG TYPE -->
+        <div class="col-12 col-md-6">
+          <span class="fake-label"
+            >LONG TYPE <em class="text-light-grey">(Optional)</em></span
+          >
+          <p *ngIf="!displayForm" class="mb-3 text-primary font-weight-bolder">
+            {{
+              pipeLine.secondaryFuelType ? pipeLine.secondaryFuelType.name : "-"
+            }}
+          </p>
+          <ng-container *ngIf="displayForm">
+            <ng-select
+              [items]="fuelTypes"
+              bindLabel="name"
+              bindValue="id"
+              [multiple]="false"
+              [hideSelected]="true"
+              placeholder="Please enter..."
+              name="secondaryFuelTypeId"
+              id="secondaryFuelTypeId"
+              [(ngModel)]="pipeLine.secondaryFuelTypeId"
+            >
+            </ng-select>
+          </ng-container>
+        </div>
+      </div>
+      <div class="row border-top mt-4">
+        <div class="col-12 pt-3">
+          <!-- CHECKBOXES -->
+          <ng-container>
+            <ng-container *ngIf="!displayForm">
+              <span class="fake-label">Checkboxes</span>
+              <p class="mb-1 text-primary font-weight-bolder">
+                {{ pipeLine.optionsSwitch ? "Enabled" : "Disabled" }}
+              </p>
+            </ng-container>
+            <ng-container *ngIf="displayForm" class="row mt-3">
+              <div class="col-auto d-inline-block">
+                <ui-switch
+                  name="optionsSwitch"
+                  [(ngModel)]="pipeLine.optionsSwitch"
+                  required
+                ></ui-switch>
+              </div>
+              <div class="col-auto mb-1 d-inline-block">
+                <span
+                  >Checkboxes
+                  {{ pipeLine.optionsSwitch ? "Enabled" : "Disabled" }}</span
+                ><br />
+                <span class="text-light-grey"
+                  >Click to
+                  {{ pipeLine.optionsSwitch ? "disable" : "enable" }}
+                  Checkboxes</span
+                >
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!displayForm">
+              <div class="row mb-4 mt-4">
+                <div class="col-3">
+                  <p
+                    *ngIf="pipeLine?.hasOption1"
+                    class="text-primary font-weight-bolder"
+                  >
+                    Option 1
+                  </p>
+                  <p
+                    *ngIf="pipeLine?.hasOption2"
+                    class="text-primary font-weight-bolder"
+                  >
+                    Option 2
+                  </p>
+                  <p
+                    *ngIf="pipeLine?.hasOption3"
+                    class="text-primary font-weight-bolder"
+                  >
+                    Option 3
+                  </p>
+                  <p
+                    *ngIf="pipeLine?.hasOption4"
+                    class="text-primary font-weight-bolder"
+                  >
+                    Option 4
+                  </p>
+                  <p
+                    *ngIf="pipeLine?.hasOption5"
+                    class="text-primary font-weight-bolder"
+                  >
+                    Option 5
+                  </p>
+                  <p
+                    *ngIf="pipeLine?.hasOption6"
+                    class="text-primary font-weight-bolder"
+                  >
+                    Option 6
+                  </p>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="displayForm">
+              <div class="row mb-3">
+                <div class="col-auto">
+                  <!-- Checkbox 1 -->
+                  <div class="checkbox">
+                    <label for="hasOption1">
+                      <input
+                        type="checkbox"
+                        [disabled]="!pipeLine.optionsSwitch"
+                        id="hasOption1"
+                        name="hasOption1"
+                        [(ngModel)]="pipeLine.hasOption1"
+                      />
+                      Checkbox 1
+                    </label>
+                  </div>
+                  <!-- Checkbox 2 -->
+                  <div class="checkbox">
+                    <label for="hasOption2">
+                      <input
+                        type="checkbox"
+                        [disabled]="!pipeLine.optionsSwitch"
+                        id="hasOption2"
+                        name="hasOption2"
+                        [(ngModel)]="pipeLine.hasOption2"
+                      />
+                      Checkbox 2
+                    </label>
+                  </div>
+                  <!-- Checkbox 3 -->
+                  <div class="checkbox">
+                    <label for="hasOption3">
+                      <input
+                        type="checkbox"
+                        [disabled]="!pipeLine.optionsSwitch"
+                        id="hasOption3"
+                        name="hasOption3"
+                        [(ngModel)]="pipeLine.hasOption3"
+                      />
+                      Checkbox 3
+                    </label>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <!-- Checkbox 4 -->
+                  <div class="checkbox">
+                    <label for="hasOption4">
+                      <input
+                        type="checkbox"
+                        [disabled]="!pipeLine.optionsSwitch"
+                        id="hasOption4"
+                        name="hasOption4"
+                        [(ngModel)]="pipeLine.hasOption4"
+                      />
+                      Checkbox 4
+                    </label>
+                  </div>
+                  <!-- Checkbox 5 -->
+                  <div class="checkbox">
+                    <label for="hasOption5">
+                      <input
+                        type="checkbox"
+                        [disabled]="!pipeLine.optionsSwitch"
+                        id="hasOption5"
+                        name="hasOption5"
+                        [(ngModel)]="pipeLine.hasOption5"
+                      />
+                      Checkbox 5
+                    </label>
+                  </div>
+                  <!-- Checkbox 6 -->
+                  <div class="checkbox">
+                    <label for="hasOption6">
+                      <input
+                        type="checkbox"
+                        [disabled]="!pipeLine.optionsSwitch"
+                        id="hasOption6"
+                        name="hasOption6"
+                        [(ngModel)]="pipeLine.hasOption6"
+                      />
+                      Checkbox 6
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      <div class="row border-top pt-4">
+        <!-- RADIO BUTTONS 1 -->
+        <ng-container>
+          <div class="col-12 col-md-4">
+            <span class="fake-label">RADIO BUTTONS 1</span>
+            <p
+              *ngIf="!displayForm"
+              class="mb-3 text-primary font-weight-bolder"
+            >
+              {{ pipeLine.radioOption1 ? "Yes" : "No" }}
+            </p>
+            <ng-container *ngIf="displayForm">
+              <div class="col-auto pt-3">
+                <div class="checkbox d-inline-block">
+                  <label for="radioOption1Yes">
+                    <input
+                      type="radio"
+                      id="radioOption1Yes"
+                      [value]="true"
+                      name="radioOption1"
+                      [(ngModel)]="pipeLine.radioOption1"
+                    />
+                    Yes
+                  </label>
+                </div>
+                <div class="checkbox d-inline-block ml-5">
+                  <label for="radioOption1No">
+                    <input
+                      type="radio"
+                      id="radioOption1No"
+                      [value]="false"
+                      name="radioOption1"
+                      [(ngModel)]="pipeLine.radioOption1"
+                    />
+                    No
+                  </label>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+        <!-- RADIO BUTTONS 2 -->
+        <ng-container>
+          <div class="col-12 col-md-4">
+            <span class="fake-label">RADIO BUTTONS 2</span>
+            <p
+              *ngIf="!displayForm"
+              class="mb-3 text-primary font-weight-bolder"
+            >
+              {{ pipeLine.radioOption2 ? "Yes" : "No" }}
+            </p>
+            <ng-container *ngIf="displayForm">
+              <div class="col-auto pt-3">
+                <div class="checkbox d-inline-block">
+                  <label for="radioOption2Yes">
+                    <input
+                      type="radio"
+                      id="radioOption2Yes"
+                      [value]="true"
+                      name="radioOption2"
+                      [(ngModel)]="pipeLine.radioOption2"
+                    />
+                    Yes
+                  </label>
+                </div>
+                <div class="checkbox d-inline-block ml-5">
+                  <label for="radioOption2No">
+                    <input
+                      type="radio"
+                      id="radioOption2No"
+                      [value]="false"
+                      name="radioOption2"
+                      [(ngModel)]="pipeLine.radioOption2"
+                    />
+                    No
+                  </label>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+        <!-- RADIO BUTTONS 3 -->
+        <ng-container>
+          <div class="col-12 col-md-4">
+            <span class="fake-label">RADIO BUTTONS 3</span>
+            <p
+              *ngIf="!displayForm"
+              class="mb-3 text-primary font-weight-bolder"
+            >
+              {{ pipeLine.radioOption3 ? "Yes" : "No" }}
+            </p>
+            <ng-container *ngIf="displayForm">
+              <div class="col-auto pt-3 pb-3">
+                <div class="checkbox d-inline-block">
+                  <label for="radioOption3Yes">
+                    <input
+                      type="radio"
+                      id="radioOption3Yes"
+                      [value]="true"
+                      name="radioOption3"
+                      [(ngModel)]="pipeLine.radioOption3"
+                    />
+                    Yes
+                  </label>
+                </div>
+                <div class="checkbox d-inline-block ml-5">
+                  <label for="radioOption3No">
+                    <input
+                      type="radio"
+                      id="radioOption3No"
+                      [value]="false"
+                      name="radioOption3"
+                      [(ngModel)]="pipeLine.radioOption3"
+                    />
+                    No
+                  </label>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
     </div>
-  </form>
+  </div>
+  <!-- Action Buttons -->
+  <div class="row pl-5 pr-5 border-top pt-2">
+    <div class="col-12 col-md-4 text-center pl-0 mt-1">
+      <button class="btn btn-secondary mx-auto" (click)="onCancelSave()">
+        Cancel
+      </button>
+    </div>
+    <div class="col-12 col-md-4 text-center pl-0 mt-1">
+      <button
+        class="btn btn-primary action-primary-btn mx-auto"
+        (click)="onSaveFormData()"
+        [disabled]="!myForm.valid"
+      >
+        {{ editMode ? "Save" : "Create" }}
+      </button>
+    </div>
+    <div class="col-12 col-md-4 text-center pl-0 mt-1">
+      <button
+        class="btn btn-primary action-primary-btn mx-auto"
+        (click)="exportFormData()"
+        [disabled]="!readyToExport"
+      >
+        Export Data
+      </button>
+    </div>
+  </div>
+</form>

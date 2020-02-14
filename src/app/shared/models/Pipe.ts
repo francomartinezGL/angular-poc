@@ -25,7 +25,7 @@ export class PipeLine {
     id: number;
     name: string;
     code: string;
-  };
+  }[];
   secondaryFuelTypeId: number;
   secondaryFuelType?: {
     id: number;
@@ -51,10 +51,9 @@ export class PipeLine {
     this.pipeLineStartDate = data.pipeLineStartDate || {};
     this.pipeLineEndDate = data.pipeLineEndDate || {};
     this.pipeLineTypeId = data.pipeLineTypeId || null;
-    this.pipeLineType = data.pipeLineType || {};
-
+    this.pipeLineType = data.pipeLineType || [];
     this.primaryFuelTypeId = data.primaryFuelTypeId || null;
-    this.primaryFuelType = data.primaryFuelType || {};
+    this.primaryFuelType = data.primaryFuelType || [];
     this.secondaryFuelTypeId = data.secondaryFuelTypeId || null;
     this.secondaryFuelType = data.secondaryFuelType || {};
     this.hasDuctBurners = data.hasDuctBurners || null;

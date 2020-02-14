@@ -1,12 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { FormsModule } from "@angular/forms";
+import { NgModule } from "@angular/core";
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { UiSwitchModule } from "ngx-ui-switch";
-import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [],
@@ -28,4 +24,4 @@ import { BrowserModule } from '@angular/platform-browser';
     OwlNativeDateTimeModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {}
